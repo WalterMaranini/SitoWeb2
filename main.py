@@ -14,6 +14,7 @@ StaticsPath = "./statics"
 
 @app.route('/')
 def index():
+    return "EUREKA"
     connection = sqlite3.connect(DataBasePath)
     connection.row_factory = sqlite3.Row
     posts = connection.execute('SELECT * FROM Posts').fetchall()
