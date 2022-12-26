@@ -9,17 +9,16 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 
 DataBasePath = './database.db'
-StaticsPath = "./statics"
+StaticsPath = "./static"
 
 
 @app.route('/')
 def index():
-    return "EUREKA"
-    # connection = sqlite3.connect(DataBasePath)
-    # connection.row_factory = sqlite3.Row
-    # posts = connection.execute('SELECT * FROM Posts').fetchall()
-    # connection.close()
-    # return render_template('Index.html', posts=posts)
+    connection = sqlite3.connect(DataBasePath)
+    connection.row_factory = sqlite3.Row
+    posts = connection.execute('SELECT * FROM Posts').fetchall()
+    connection.close()
+    return render_template('Index.html', posts=posts)
 
 
 @app.route('/<int:idx>/delete', methods=('POST',))
