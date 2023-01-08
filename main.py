@@ -54,6 +54,16 @@ def create():
     return render_template('create.html')
 
 
+@app.route('/logger/<int:num_log>', methods=['GET',])
+def logger(num_log):
+    connection = sqlite3.connect(DataBasePath)
+    connection.row_factory = sqlite3.Row
+    connection.execute('INSERT INTO Logging (LogMessage) VALUES (?)', (num_log,))
+    connection.commit()
+    connection.close()
+    return "log caricato"
+
+
 @app.route('/upload')
 def upload_file():
     return render_template('upload.html')
